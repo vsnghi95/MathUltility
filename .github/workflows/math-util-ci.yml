@@ -1,0 +1,30 @@
+name: MathUtility using Maven, CI |© 2023 nghivs
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 17 - Mượn JDK cài vào Sever bên Mỹ - Sever Ubuntu GH cho mượn
+      uses: actions/setup-java@v3
+      with:
+        java-version: ''
+        distribution: 'temurin'
+        cache: maven
+    - name: Build with Maven - Đóng gói app thành .jar bên sever Mỹ
+      run: mvn -B package --file pom.xml
+
+    - name: Make hyperlink to jar-war file # Tạo hyperlink để download build 
+      uses: actions/upload-artifact@v1
+      with:
+          name: ban-gai.zip # Bản build được đánh version 1.0-SNAPSHOT
+          path: staging
+
